@@ -74,7 +74,7 @@ class DataProcessor:
         Returns:
             None.
         """
-        intID, album, artist = IO.user_input()
+        intID, album, artist = IO.user_input(IO)
         new_cd = CD(intID, album, artist)
         lstOfCDObjects.append(new_cd)
         
@@ -109,7 +109,7 @@ class FileIO:
         """
         with open(file_name, 'w') as f:
             for cd in lst_Inventory:
-                f.write(str(cd) + '\n')
+                f.write(str(cd.cd_id) + ',' + cd.cd_title + ',' + cd.cd_artist + '\n')
             f.close()
 
     @staticmethod
@@ -126,7 +126,7 @@ class FileIO:
                 lstOfCDObjects.clear()
                 for line in f.readlines():
                     lines = line[:-1].split(',')
-                    lstOfCDObjects.append(CD(lines[0], lines[1], lines[2])) 
+                    lstOfCDObjects.append(CD(int(lines[0]), lines[1], lines[2])) 
         except:
             print('\nNo data in the file. There is nothing to load.')
 
